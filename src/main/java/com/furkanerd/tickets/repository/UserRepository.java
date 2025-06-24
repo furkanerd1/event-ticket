@@ -1,4 +1,4 @@
-package com.furkanerd.tickets.model.repository;
+package com.furkanerd.tickets.repository;
 
 import com.furkanerd.tickets.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

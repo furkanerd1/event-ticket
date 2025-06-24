@@ -1,6 +1,6 @@
 package com.furkanerd.tickets.config;
 
-import com.furkanerd.tickets.filters.UserProvisioningFilter;
+import com.furkanerd.tickets.filter.UserProvisioningFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;

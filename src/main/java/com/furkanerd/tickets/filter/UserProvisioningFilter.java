@@ -1,7 +1,7 @@
-package com.furkanerd.tickets.filters;
+package com.furkanerd.tickets.filter;
 
 import com.furkanerd.tickets.model.entity.User;
-import com.furkanerd.tickets.model.repository.UserRepository;
+import com.furkanerd.tickets.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
