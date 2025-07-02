@@ -3,19 +3,20 @@ package com.furkanerd.tickets.controller;
 import com.furkanerd.tickets.mapper.EventMapper;
 import com.furkanerd.tickets.model.dto.internal.CreateEventRequestDto;
 import com.furkanerd.tickets.model.dto.internal.CreateEventResponseDto;
+import com.furkanerd.tickets.model.dto.internal.GetEventDetailsResponseDto;
+import com.furkanerd.tickets.model.dto.internal.ListEventResponseDto;
 import com.furkanerd.tickets.model.dto.request.CreateEventRequest;
 import com.furkanerd.tickets.model.entity.Event;
 import com.furkanerd.tickets.service.EventService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -34,5 +35,25 @@ public class EventController {
         UUID userId = UUID.fromString(jwt.getSubject());
         Event createdEvent = eventService.createEvent(userId,request);
         return new ResponseEntity<>(eventMapper.toResponseDto(createdEvent), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ListEventResponseDto>> listEvents(@AuthenticationPrincipal Jwt jwt, Pageable pageable) {
+        UUID userId = parseUuid(jwt);
+        Page<Event> events  = eventService.listEventsForOrganizer(userId,pageable);
+        return  ResponseEntity.ok(events.map(eventMapper::toListResponseDto));
+    }
+
+    @GetMapping(path = "/{eventId}")
+    public ResponseEntity<GetEventDetailsResponseDto> getEventDetails(@AuthenticationPrincipal Jwt jwt, @PathVariable UUID eventId) {
+        UUID userId = parseUuid(jwt);
+        return eventService.getEventForOrganizer(eventId,userId)
+                .map(eventMapper::toGetEventDetailsResponseDto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    private UUID parseUuid(Jwt jwt) {
+        return UUID.fromString(jwt.getSubject());
     }
 }

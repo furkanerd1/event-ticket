@@ -9,10 +9,13 @@ import com.furkanerd.tickets.repository.EventRepository;
 import com.furkanerd.tickets.repository.UserRepository;
 import com.furkanerd.tickets.service.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -53,5 +56,15 @@ public class EventServiceImpl implements EventService {
         toCreate.setTicketTypes(ticketTypeList);
 
         return eventRepository.save(toCreate);
+    }
+
+    @Override
+    public Page<Event> listEventsForOrganizer(UUID organizerId, Pageable pageable) {
+        return eventRepository.findByOrganizerId(organizerId,pageable);
+    }
+
+    @Override
+    public Optional<Event> getEventForOrganizer(UUID eventId, UUID organizerId) {
+        return eventRepository.findByIdAndOrganizerId(eventId,organizerId);
     }
 }

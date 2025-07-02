@@ -1,10 +1,10 @@
 package com.furkanerd.tickets.mapper;
 
-import com.furkanerd.tickets.model.dto.internal.CreateEventRequestDto;
-import com.furkanerd.tickets.model.dto.internal.CreateEventResponseDto;
+import com.furkanerd.tickets.model.dto.internal.*;
 import com.furkanerd.tickets.model.dto.request.CreateEventRequest;
 import com.furkanerd.tickets.model.dto.request.CreateTicketTypeRequest;
 import com.furkanerd.tickets.model.entity.Event;
+import com.furkanerd.tickets.model.entity.TicketType;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -16,4 +16,12 @@ public interface EventMapper {
     CreateTicketTypeRequest fromDto(CreateTicketTypeRequest createTicketTypeRequestDto);
 
     CreateEventResponseDto toResponseDto(Event event);
+
+    ListEventResponseDto toListResponseDto(Event event);
+
+    TicketTypeResponseDto toTicketTypeResponseDto(TicketType ticketType);
+
+    GetEventDetailsResponseDto toGetEventDetailsResponseDto(Event event);
+
+    GetEventTicketTypeResponseDto toGetEventTicketTypeResponseDto(TicketType ticketType);
 }
