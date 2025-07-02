@@ -30,11 +30,11 @@ public class UserProvisioningFilter extends OncePerRequestFilter {
             UUID keyCloakId = UUID.fromString(jwt.getSubject());
 
             if(!userRepository.existsById(keyCloakId)) {
-                User user = new User();
-                user.setId(keyCloakId);
-                user.setName(jwt.getClaimAsString("preferred_username"));
-                user.setEmail(jwt.getClaimAsString("email"));
-                userRepository.save(user);
+                    User user = new User();
+                    user.setId(keyCloakId);
+                    user.setName(jwt.getClaimAsString("preferred_username"));
+                    user.setEmail(jwt.getClaimAsString("email"));
+                    userRepository.save(user);
             }
         }
         filterChain.doFilter(request, response);

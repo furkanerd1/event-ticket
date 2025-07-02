@@ -10,6 +10,7 @@ import com.furkanerd.tickets.repository.UserRepository;
 import com.furkanerd.tickets.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,8 +23,11 @@ public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
 
     @Override
+    @Transactional
     public Event createEvent(UUID organizerId, CreateEventRequest createEventRequest) {
         User organizer = userRepository.findById(organizerId).orElseThrow(() -> new UserNotFoundException("User not found with ID "+organizerId));
+
+        Event toCreate = new Event();
 
         List<TicketType> ticketTypeList = createEventRequest.ticketTypes().stream().map(
                 ticketType -> {
@@ -32,21 +36,21 @@ public class EventServiceImpl implements EventService {
                     ticketTypeToCreate.setPrice(ticketType.price());
                     ticketTypeToCreate.setDescription(ticketType.description());
                     ticketTypeToCreate.setTotalAvailable(ticketType.totalAvailable());
+                    ticketTypeToCreate.setEvent(toCreate);
                     return ticketTypeToCreate;
                 }
         ).toList();
 
-        Event toCreate = Event.builder()
-                .name(createEventRequest.name())
-                .start(createEventRequest.start())
-                .end(createEventRequest.end())
-                .venue(createEventRequest.venue())
-                .salesStartDate(createEventRequest.salesStartDate())
-                .salesEndDate(createEventRequest.salesEndDate())
-                .status(createEventRequest.status())
-                .organizer(organizer)
-                .ticketTypes(ticketTypeList)
-                .build();
+
+        toCreate.setName(createEventRequest.name());
+        toCreate.setStart(createEventRequest.start());
+        toCreate.setEnd(createEventRequest.end());
+        toCreate.setVenue(createEventRequest.venue());
+        toCreate.setSalesStartDate(createEventRequest.salesStartDate());
+        toCreate.setSalesEndDate(createEventRequest.salesEndDate());
+        toCreate.setStatus(createEventRequest.status());
+        toCreate.setOrganizer(organizer);
+        toCreate.setTicketTypes(ticketTypeList);
 
         return eventRepository.save(toCreate);
     }
