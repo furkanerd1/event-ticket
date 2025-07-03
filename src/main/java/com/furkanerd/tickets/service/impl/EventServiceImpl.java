@@ -1,7 +1,12 @@
 package com.furkanerd.tickets.service.impl;
 
+import com.furkanerd.tickets.exception.EventNotFoundException;
+import com.furkanerd.tickets.exception.EventUpdateException;
+import com.furkanerd.tickets.exception.TicketTypeNotFoundException;
 import com.furkanerd.tickets.exception.UserNotFoundException;
 import com.furkanerd.tickets.model.dto.request.CreateEventRequest;
+import com.furkanerd.tickets.model.dto.request.UpdateEventRequest;
+import com.furkanerd.tickets.model.dto.request.UpdateTicketTypeRequest;
 import com.furkanerd.tickets.model.entity.Event;
 import com.furkanerd.tickets.model.entity.TicketType;
 import com.furkanerd.tickets.model.entity.User;
@@ -14,9 +19,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -66,5 +71,57 @@ public class EventServiceImpl implements EventService {
     @Override
     public Optional<Event> getEventForOrganizer(UUID eventId, UUID organizerId) {
         return eventRepository.findByIdAndOrganizerId(eventId,organizerId);
+    }
+
+    @Override
+    @Transactional
+    public Event updateEvent(UUID eventId, UUID organizerId, UpdateEventRequest updateEventRequest) {
+        if(updateEventRequest.id() == null) throw new EventUpdateException("Event ID cannot be null");
+
+        if(!eventId.equals(updateEventRequest.id())) throw new EventUpdateException("You cannot update the ID of event");
+
+        Event existingEvent = eventRepository.findByIdAndOrganizerId(eventId,organizerId)
+                .orElseThrow(() -> new EventNotFoundException("Event not found with ID "+eventId));
+
+        existingEvent.setName(updateEventRequest.name());
+        existingEvent.setStart(updateEventRequest.start());
+        existingEvent.setEnd(updateEventRequest.end());
+        existingEvent.setVenue(updateEventRequest.venue());
+        existingEvent.setSalesStartDate(updateEventRequest.salesStartDate());
+        existingEvent.setSalesEndDate(updateEventRequest.salesEndDate());
+        existingEvent.setStatus(updateEventRequest.status());
+
+        Set<UUID> requestTicketTypeIds = updateEventRequest.ticketTypes().stream()
+                .map(UpdateTicketTypeRequest::id) // req -> req.id()
+                .filter(Objects::nonNull) // id -> id != null
+                .collect(Collectors.toSet());
+
+        existingEvent.getTicketTypes().removeIf(ticketTypeId -> !requestTicketTypeIds.contains(ticketTypeId.getId()));
+
+        Map<UUID, TicketType> existingTicketTypesIndex = existingEvent.getTicketTypes().stream()
+                .collect(Collectors.toMap(TicketType::getId, Function.identity()));
+
+        for (UpdateTicketTypeRequest requestTicketType : updateEventRequest.ticketTypes()) {
+            if(requestTicketType.id() == null) {
+
+                TicketType ticketType = new TicketType();
+                ticketType.setName(requestTicketType.name());
+                ticketType.setPrice(requestTicketType.price());
+                ticketType.setDescription(requestTicketType.description());
+                ticketType.setTotalAvailable(requestTicketType.totalAvailable());
+                ticketType.setEvent(existingEvent);
+                existingEvent.getTicketTypes().add(ticketType);
+
+            }else if (existingTicketTypesIndex.containsKey(requestTicketType.id())) {
+                TicketType toUpdate = existingTicketTypesIndex.get(requestTicketType.id());
+                toUpdate.setName(requestTicketType.name());
+                toUpdate.setPrice(requestTicketType.price());
+                toUpdate.setDescription(requestTicketType.description());
+                toUpdate.setTotalAvailable(requestTicketType.totalAvailable());
+            }else {
+                throw new TicketTypeNotFoundException("TicketType not found with ID" + requestTicketType.id());
+            }
+        }
+        return eventRepository.save(existingEvent);
     }
 }

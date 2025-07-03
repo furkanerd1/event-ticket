@@ -1,7 +1,6 @@
 package com.furkanerd.tickets.exception.handler;
 
-import com.furkanerd.tickets.exception.ErrorDto;
-import com.furkanerd.tickets.exception.UserNotFoundException;
+import com.furkanerd.tickets.exception.*;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,6 +16,24 @@ import java.util.List;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(EventUpdateException.class)
+    public ResponseEntity<ErrorDto> handleEventUpdateException(EventUpdateException ex) {
+        log.error("Caught EventUpdateException", ex);
+        return new ResponseEntity<>(new ErrorDto(" EventUpdateException occurred" ), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TicketTypeNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleTicketTypeNotFoundException(TicketTypeNotFoundException ex) {
+        log.error("Caught TicketTypeNotFoundException", ex);
+        return new ResponseEntity<>(new ErrorDto(" TicketTypeNotFoundException occurred" ), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleEventNotFoundException(EventNotFoundException ex) {
+        log.error("Caught EventNotFoundException", ex);
+        return new ResponseEntity<>(new ErrorDto(" EventNotFoundException occurred" ), HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorDto> handleUserNotFoundException(UserNotFoundException ex) {

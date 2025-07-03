@@ -1,6 +1,7 @@
 package com.furkanerd.tickets.service;
 
 import com.furkanerd.tickets.model.dto.request.CreateEventRequest;
+import com.furkanerd.tickets.model.dto.request.UpdateEventRequest;
 import com.furkanerd.tickets.model.entity.Event;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,4 +17,6 @@ public interface EventService {
     Page<Event> listEventsForOrganizer(UUID organizerId, Pageable pageable);
 
     Optional<Event> getEventForOrganizer(UUID eventId, UUID organizerId);
+
+    Event updateEvent(UUID eventId, UUID organizerId, UpdateEventRequest updateEventRequest);
 }
