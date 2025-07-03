@@ -3,6 +3,8 @@ package com.furkanerd.tickets.mapper;
 import com.furkanerd.tickets.model.dto.internal.*;
 import com.furkanerd.tickets.model.dto.request.CreateEventRequest;
 import com.furkanerd.tickets.model.dto.request.CreateTicketTypeRequest;
+import com.furkanerd.tickets.model.dto.request.UpdateEventRequest;
+import com.furkanerd.tickets.model.dto.request.UpdateTicketTypeRequest;
 import com.furkanerd.tickets.model.entity.Event;
 import com.furkanerd.tickets.model.entity.TicketType;
 import org.mapstruct.Mapper;
@@ -24,4 +26,12 @@ public interface EventMapper {
     GetEventDetailsResponseDto toGetEventDetailsResponseDto(Event event);
 
     GetEventTicketTypeResponseDto toGetEventTicketTypeResponseDto(TicketType ticketType);
+
+    UpdateTicketTypeRequest fromUpdateTicketTypeRequestDto(UpdateTicketTypeRequestDto updateTicketTypeRequestDto);
+
+    UpdateTicketTypeResponseDto toUpdateTicketTypeResponseDto(TicketType ticketType);
+
+    UpdateEventRequest fromUpdateEventRequestDto(UpdateEventRequestDto updateEventRequestDto);
+
+    UpdateEventResponseDto toUpdateEventResponseDto(Event event);
 }

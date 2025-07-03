@@ -1,10 +1,7 @@
 package com.furkanerd.tickets.controller;
 
 import com.furkanerd.tickets.mapper.EventMapper;
-import com.furkanerd.tickets.model.dto.internal.CreateEventRequestDto;
-import com.furkanerd.tickets.model.dto.internal.CreateEventResponseDto;
-import com.furkanerd.tickets.model.dto.internal.GetEventDetailsResponseDto;
-import com.furkanerd.tickets.model.dto.internal.ListEventResponseDto;
+import com.furkanerd.tickets.model.dto.internal.*;
 import com.furkanerd.tickets.model.dto.request.CreateEventRequest;
 import com.furkanerd.tickets.model.entity.Event;
 import com.furkanerd.tickets.service.EventService;
@@ -52,6 +49,17 @@ public class EventController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PutMapping(path = "/{eventId}")
+    public ResponseEntity<UpdateEventResponseDto> updateEvent
+            (@AuthenticationPrincipal Jwt jwt,
+             @Valid @RequestBody UpdateEventRequestDto requestDto,
+             @PathVariable UUID eventId){
+        UUID userId = parseUuid(jwt);
+        Event updatedEvent = eventService.updateEvent(eventId,userId,eventMapper.fromUpdateEventRequestDto(requestDto));
+        return ResponseEntity.ok(eventMapper.toUpdateEventResponseDto(updatedEvent));
+    }
+
 
     private UUID parseUuid(Jwt jwt) {
         return UUID.fromString(jwt.getSubject());
