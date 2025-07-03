@@ -18,7 +18,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http , UserProvisioningFilter userProvisioningFilter) throws Exception {
         http
                 .authorizeHttpRequests(authorize ->
-                        authorize.anyRequest().authenticated())
+                        authorize.requestMatchers("/api/v1/published-events").permitAll()
+                                .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))

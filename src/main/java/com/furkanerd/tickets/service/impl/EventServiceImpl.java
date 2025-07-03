@@ -10,6 +10,7 @@ import com.furkanerd.tickets.model.dto.request.UpdateTicketTypeRequest;
 import com.furkanerd.tickets.model.entity.Event;
 import com.furkanerd.tickets.model.entity.TicketType;
 import com.furkanerd.tickets.model.entity.User;
+import com.furkanerd.tickets.model.enums.EventStatusEnum;
 import com.furkanerd.tickets.repository.EventRepository;
 import com.furkanerd.tickets.repository.UserRepository;
 import com.furkanerd.tickets.service.EventService;
@@ -126,8 +127,14 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public void deleteEvent(UUID eventId, UUID organizerId) {
        Event eventToDelete =  eventRepository.findByIdAndOrganizerId(eventId,organizerId).orElseThrow(() -> new EventNotFoundException("Event not found with ID "+eventId));
        eventRepository.delete(eventToDelete);
+    }
+
+    @Override
+    public Page<Event> listPublishedEvents(Pageable pageable) {
+        return eventRepository.findByStatus(EventStatusEnum.PUBLISHED,pageable);
     }
 }
