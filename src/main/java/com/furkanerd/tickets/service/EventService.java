@@ -19,4 +19,6 @@ public interface EventService {
     Optional<Event> getEventForOrganizer(UUID eventId, UUID organizerId);
 
     Event updateEvent(UUID eventId, UUID organizerId, UpdateEventRequest updateEventRequest);
+
+    void deleteEvent(UUID eventId, UUID organizerId);
 }

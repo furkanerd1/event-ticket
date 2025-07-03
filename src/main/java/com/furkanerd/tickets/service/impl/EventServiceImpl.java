@@ -124,4 +124,10 @@ public class EventServiceImpl implements EventService {
         }
         return eventRepository.save(existingEvent);
     }
+
+    @Override
+    public void deleteEvent(UUID eventId, UUID organizerId) {
+       Event eventToDelete =  eventRepository.findByIdAndOrganizerId(eventId,organizerId).orElseThrow(() -> new EventNotFoundException("Event not found with ID "+eventId));
+       eventRepository.delete(eventToDelete);
+    }
 }
