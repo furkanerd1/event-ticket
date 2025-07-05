@@ -120,7 +120,7 @@ public class EventServiceImpl implements EventService {
                 toUpdate.setDescription(requestTicketType.description());
                 toUpdate.setTotalAvailable(requestTicketType.totalAvailable());
             }else {
-                throw new TicketTypeNotFoundException("TicketType not found with ID" + requestTicketType.id());
+                throw new TicketTypeNotFoundException("TicketTypeService not found with ID" + requestTicketType.id());
             }
         }
         return eventRepository.save(existingEvent);

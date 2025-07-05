@@ -17,6 +17,12 @@ import java.util.List;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(TicketsSoldOutException.class)
+    public ResponseEntity<ErrorDto> handleTicketsSoldOutException(TicketsSoldOutException ex) {
+        log.error("Caught TicketsSoldOutException", ex);
+        return new ResponseEntity<>(new ErrorDto("All tickets are sols" ), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(QrCodeGenerationException.class)
     public ResponseEntity<ErrorDto> handleQrCodeGenerationException(QrCodeGenerationException ex) {
         log.error("Caught QrCodeGenerationException", ex);
