@@ -219,7 +219,7 @@ All endpoints require JWT Bearer token authentication except for published event
 
 Import the Postman collection to test all API endpoints:
 
-1. Download the collection: [Event Ticket API.postman_collection.json]([]()
+1. Download the collection: [Event Ticket API.postman_collection.json](postman/event-ticket.postman_collection.json)
 )
 2. Import into Postman
 3. Set up environment variables:
@@ -231,8 +231,8 @@ Import the Postman collection to test all API endpoints:
 ## 📚 API Documentation
 
 Access the interactive API documentation:
-- ** Swagger UI**: `http://localhost:8082/swagger-ui/index.html`
-- ** OpenAPI Spec**: `http://localhost:8082/v3/api-docs`
+- **Swagger UI**: `http://localhost:8082/swagger-ui/index.html`
+- **OpenAPI Spec**: `http://localhost:8082/v3/api-docs`
 
 ---
 
