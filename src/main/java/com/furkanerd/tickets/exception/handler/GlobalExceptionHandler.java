@@ -17,6 +17,13 @@ import java.util.List;
 @Slf4j
 public class GlobalExceptionHandler {
 
+
+    @ExceptionHandler(TicketNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleTicketNotFoundException(TicketNotFoundException ex) {
+        log.error("Caught TicketNotFoundException", ex);
+        return new ResponseEntity<>(new ErrorDto("Ticket not found" ), HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(QrCodeNotFoundException.class)
     public ResponseEntity<ErrorDto> handleQrCodeNotFoundException(QrCodeNotFoundException ex) {
         log.error("Caught QrCodeNotFoundException", ex);
