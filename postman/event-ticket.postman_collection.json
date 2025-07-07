@@ -1,0 +1,534 @@
+{
+	"info": {
+		"_postman_id": "5ca16fc5-cc49-4561-8ba0-d923f009fc62",
+		"name": "event-ticket",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37727990"
+	},
+	"item": [
+		{
+			"name": "Generate Token For Different User",
+			"item": [
+				{
+					"name": "getToken for organizer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "event-ticket-platform-app",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "organizer",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9090/realms/event-ticket-platforn/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"realms",
+								"event-ticket-platforn",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getToken for atendee",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "event-ticket-platform-app",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "attendee",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9090/realms/event-ticket-platforn/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"realms",
+								"event-ticket-platforn",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ORGANIZER",
+			"item": [
+				{
+					"name": "createEvent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2MTN6ams3OXZTZ3NFZ2Ixd1FCT2phOWJILXMxSlJQb0M5UGg3MERwOHk0In0.eyJleHAiOjE3NTE1NTIyMTQsImlhdCI6MTc1MTU0ODYxNCwianRpIjoib25ydHJvOmQxOTkxMWJhLTY4NWItNDdhNy1hMzQ1LTVjNjQyZGRkZmI1MCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA5MC9yZWFsbXMvZXZlbnQtdGlja2V0LXBsYXRmb3JuIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjFiYjJiNDc4LTBlMDEtNGQyNi05NjFlLTU0NTQyODVjNzM5ZCIsInR5cCI6IkJlYXJlciIsImF6cCI6ImV2ZW50LXRpY2tldC1wbGF0Zm9ybS1hcHAiLCJzaWQiOiI5YjMyOGY3MS1lNzM5LTQwNDQtYWNlMS1iYTg2OTViODYxNDgiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm4iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiT3JnYW5pemVyIFVzZXIiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJvcmdhbml6ZXIiLCJnaXZlbl9uYW1lIjoiT3JnYW5pemVyIiwiZmFtaWx5X25hbWUiOiJVc2VyIiwiZW1haWwiOiJuaW5vdmEzNDlAZ21haWwuY29tIn0.daBecsKuWsZ9CyU5q-lanbD5NqVD2ydY_HO0npq5gKnbGwdC0oxIcxyz6tnKmjCos9-O9WL9SPNZv9Mj5zidUtZbnkni2ls6F3yoy93kqY1Z9lbstDBY146QSmxSIqRk7vX-_PI9l8cyPWEPW_iOhn-OmdwEpTCfeSCl_LDt8i8SZQvPtHz59ugW4RSbL6ZaOypHdS8VrrFyyF0wMJR4J78-kTepG3lH6dIVlt3NwpyY3FusVgLfdVWT5wjVhNFFbHP3-FbUPEQupzdIImstrMXKZ2QykGm1ksdxw_FkSSQXBe6FF-AU9mgnU0uQtAPdUMllTJ9xyzBjGmW2cqJDIg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"DRAFT EVENTİ\",\r\n    \"start\": \"2025-08-15T20:00:00\",\r\n    \"end\": \"2025-08-15T23:00:00\",\r\n    \"venue\":\"İstanbul Arena\",\r\n    \"salesStartDate\": \"2025-08-01T10:00:00\",\r\n    \"salesEndDate\": \"2025-08-14T18:00:00\",\r\n    \"status\": \"DRAFT\",\r\n    \"ticketTypes\": [\r\n        {\r\n            \"name\" : \"Standart Bilet\",\r\n            \"totalAvailable\": 120,\r\n            \"price\":400.00,\r\n            \"description\": \"Standart Bilet Açıklama\"\r\n        } ,\r\n        {\r\n            \"name\" : \"VIP Bilet\",\r\n            \"totalAvailable\": 40,\r\n            \"price\":800.00,\r\n            \"description\": \"VIP Bilet Açıklama\"\r\n        }\r\n    \r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/v1/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List event for organizer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2MTN6ams3OXZTZ3NFZ2Ixd1FCT2phOWJILXMxSlJQb0M5UGg3MERwOHk0In0.eyJleHAiOjE3NTE1NTIyMTQsImlhdCI6MTc1MTU0ODYxNCwianRpIjoib25ydHJvOmQxOTkxMWJhLTY4NWItNDdhNy1hMzQ1LTVjNjQyZGRkZmI1MCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA5MC9yZWFsbXMvZXZlbnQtdGlja2V0LXBsYXRmb3JuIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjFiYjJiNDc4LTBlMDEtNGQyNi05NjFlLTU0NTQyODVjNzM5ZCIsInR5cCI6IkJlYXJlciIsImF6cCI6ImV2ZW50LXRpY2tldC1wbGF0Zm9ybS1hcHAiLCJzaWQiOiI5YjMyOGY3MS1lNzM5LTQwNDQtYWNlMS1iYTg2OTViODYxNDgiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm4iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiT3JnYW5pemVyIFVzZXIiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJvcmdhbml6ZXIiLCJnaXZlbl9uYW1lIjoiT3JnYW5pemVyIiwiZmFtaWx5X25hbWUiOiJVc2VyIiwiZW1haWwiOiJuaW5vdmEzNDlAZ21haWwuY29tIn0.daBecsKuWsZ9CyU5q-lanbD5NqVD2ydY_HO0npq5gKnbGwdC0oxIcxyz6tnKmjCos9-O9WL9SPNZv9Mj5zidUtZbnkni2ls6F3yoy93kqY1Z9lbstDBY146QSmxSIqRk7vX-_PI9l8cyPWEPW_iOhn-OmdwEpTCfeSCl_LDt8i8SZQvPtHz59ugW4RSbL6ZaOypHdS8VrrFyyF0wMJR4J78-kTepG3lH6dIVlt3NwpyY3FusVgLfdVWT5wjVhNFFbHP3-FbUPEQupzdIImstrMXKZ2QykGm1ksdxw_FkSSQXBe6FF-AU9mgnU0uQtAPdUMllTJ9xyzBjGmW2cqJDIg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/v1/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get event for organizer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2MTN6ams3OXZTZ3NFZ2Ixd1FCT2phOWJILXMxSlJQb0M5UGg3MERwOHk0In0.eyJleHAiOjE3NTE0Njk4MzcsImlhdCI6MTc1MTQ2NjIzNywianRpIjoib25ydHJvOjY4OTY5YjlkLTdmZDktNDI4Ny05Y2ZhLTM2YjJhNmY4MTFjYSIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA5MC9yZWFsbXMvZXZlbnQtdGlja2V0LXBsYXRmb3JuIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjFiYjJiNDc4LTBlMDEtNGQyNi05NjFlLTU0NTQyODVjNzM5ZCIsInR5cCI6IkJlYXJlciIsImF6cCI6ImV2ZW50LXRpY2tldC1wbGF0Zm9ybS1hcHAiLCJzaWQiOiIwNDExNzY3Ni0zMGUwLTQ5OTItYTI2NS1jNmRkNDUxMzgwYTkiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm4iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiT3JnYW5pemVyIFVzZXIiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJvcmdhbml6ZXIiLCJnaXZlbl9uYW1lIjoiT3JnYW5pemVyIiwiZmFtaWx5X25hbWUiOiJVc2VyIiwiZW1haWwiOiJuaW5vdmEzNDlAZ21haWwuY29tIn0.cq4n1q9yLaArQJB0I9CqrQmmgSl2yluc949KSo4hEnfAchXFIgHKSdIHp531tdigNafetfwV5d0ZP2LI6OV5-f5C0FL94gYqz4739_XHIcCurAa1mmMXcMFAoE9cBwNa7X_bwYaFOf7FO-tJDAQlxu6D-ZzrqbtlB7fmbi9IIFjnA9vWQC77_jv_yj1ThguZViyKudPK0Or5m5BbVZRehxkeGR1Dt2sHG1hDfs4hyntpNy-gNn67ME2hWxsWatw7b1U23aYp1xxrGEJInxe8elp9VvrQ3ZjRah5j4XAy1u3bGk8CKcf2TpaOS4-_lwHcp0DPaZQvJrsc6cP_GnviEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/v1/events/d33af293-bdbd-42c1-9813-33b17cedf2ae",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"d33af293-bdbd-42c1-9813-33b17cedf2ae"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2MTN6ams3OXZTZ3NFZ2Ixd1FCT2phOWJILXMxSlJQb0M5UGg3MERwOHk0In0.eyJleHAiOjE3NTE1NDc5MTAsImlhdCI6MTc1MTU0NDMxMCwianRpIjoib25ydHJvOmY1MDgwYzhhLWM2NzEtNGE3MC04ZmFkLTkyMGMxNDA3YmU2NyIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA5MC9yZWFsbXMvZXZlbnQtdGlja2V0LXBsYXRmb3JuIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjFiYjJiNDc4LTBlMDEtNGQyNi05NjFlLTU0NTQyODVjNzM5ZCIsInR5cCI6IkJlYXJlciIsImF6cCI6ImV2ZW50LXRpY2tldC1wbGF0Zm9ybS1hcHAiLCJzaWQiOiIxYzcwMGRkYi1iNzJlLTQ3MTctOWYwMy1iOWIyN2Y1YTU5ZDEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm4iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiT3JnYW5pemVyIFVzZXIiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJvcmdhbml6ZXIiLCJnaXZlbl9uYW1lIjoiT3JnYW5pemVyIiwiZmFtaWx5X25hbWUiOiJVc2VyIiwiZW1haWwiOiJuaW5vdmEzNDlAZ21haWwuY29tIn0.R3c-GWFnl1hz3D11X1-c9ar81Z7t7KItbt1ZLr0QPL6bS4nkO1SVA9hxbVhOgQEhQKeGd1Iy-6jM1J5VcmBQZRtBUz5bm7AJ3TSD3eGIYurHA6iFqJP8Ai45Qd9mH_riOaVLUQNgAfX59cHm8jwRhEF_K89lemYFJq4_5DNjDCzJYp9vHUZpqNKGVkNgFTNq4t2cu1ZwImuDS-lfAiMZJzydg60jJmN-RLDwrsekJwT13jRUUqHxqSYNJgADlRWv2XMiANnBUT_d4jclW5Kn_HlT0nz32kwdS_w91ZXkWlgqEFSQp6jvMLKMGf2GsQad40BJuVBofaufli5iRqf6CA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : \"d33af293-bdbd-42c1-9813-33b17cedf2ae\",\r\n    \"name\" : \"2.DenemeEventi guncelledim\",\r\n    \"start\": \"2025-08-15T20:00:00\",\r\n    \"end\": \"2025-08-15T23:00:00\",\r\n    \"venue\":\"İstanbul Arena\",\r\n    \"salesStartDate\": \"2025-08-01T10:00:00\",\r\n    \"salesEndDate\": \"2025-08-14T18:00:00\",\r\n    \"status\": \"PUBLISHED\",\r\n    \"ticketTypes\": [\r\n        {\r\n            \"name\" : \"Standart Bilet\",\r\n            \"totalAvailable\": 120,\r\n            \"price\":400.00,\r\n            \"description\": \"Standart Bilet Açıklama\"\r\n        } ,\r\n        {\r\n            \"name\" : \"VIP Bilet\",\r\n            \"totalAvailable\": 40,\r\n            \"price\":800.00,\r\n            \"description\": \"VIP Bilet Açıklama\"\r\n        },\r\n         {\r\n            \"name\" : \"GOLD Bilet\",\r\n            \"totalAvailable\": 10,\r\n            \"price\":1500.00,\r\n            \"description\": \"GOLD Bilet Açıklama\"\r\n        }\r\n    \r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/v1/events/d33af293-bdbd-42c1-9813-33b17cedf2ae",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"d33af293-bdbd-42c1-9813-33b17cedf2ae"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/v1/events/242e4dbe-b4df-44a9-a974-95874fc058cb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"242e4dbe-b4df-44a9-a974-95874fc058cb"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ATTENDEE",
+			"item": [
+				{
+					"name": "Purchase ticket for attendee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2MTN6ams3OXZTZ3NFZ2Ixd1FCT2phOWJILXMxSlJQb0M5UGg3MERwOHk0In0.eyJleHAiOjE3NTE3Mjg1NjQsImlhdCI6MTc1MTcyNDk2NCwianRpIjoib25ydHJvOjA1Y2RlMjZhLTY4NDctNDc0OC1iYmRhLWM5N2ExN2M5ZjMyYiIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA5MC9yZWFsbXMvZXZlbnQtdGlja2V0LXBsYXRmb3JuIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImY5ZTBmMGQ0LWI3MmItNDIzMi1hYzc0LTQxYjNkZDJiYjc1OSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImV2ZW50LXRpY2tldC1wbGF0Zm9ybS1hcHAiLCJzaWQiOiJiMjBjMjYwYy0xMzNmLTQ2NzMtOTNkMS02NzI0NzlmOWZhMzIiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm4iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiUk9MRV9BVFRFTkRFRSJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlVzZXIgQXR0ZW5kZWUiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhdHRlbmRlZSIsImdpdmVuX25hbWUiOiJVc2VyIiwiZmFtaWx5X25hbWUiOiJBdHRlbmRlZSIsImVtYWlsIjoiYXR0ZW5kZWVAZ21haWwuY29tIn0.CvMIVDuqEVQlh8O6-KAwoaQMMx9DWxGbH2Yc3Q4qrp0UVLp8GAhW84_5DwTysJmgXRG0xxaySbcvXRqE3TOSAj6-UYNP2xhYqx1n7voUom4vbO5TpwCqmlfwA4QvdiJ0OEx0R2lIC52S3BXs8yzi85G1Q6VLik8CkPIg0UMow8PFFn4oWPhqLXW4A5vs155VXktYV82Ygas_Pg4Ob17YJ2HNZSzz4bsFYvfxcygGemsRVl9QeIWxLoTzV6Q5Rhq57s2EI1pUwPNtgh_cnu8uEE-lPtDifJGZY52SP4zFpW5jDY6c5tSZQfCo4Fkbf_kYZKfs-OOTlNI_aQHRJ1bmBQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/v1/events/d33af293-bdbd-42c1-9813-33b17cedf2ae/ticket-types/f62e9dd1-8b08-42bd-916c-8cf9eb9d0e75/tickets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"d33af293-bdbd-42c1-9813-33b17cedf2ae",
+								"ticket-types",
+								"f62e9dd1-8b08-42bd-916c-8cf9eb9d0e75",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list tickets for user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2MTN6ams3OXZTZ3NFZ2Ixd1FCT2phOWJILXMxSlJQb0M5UGg3MERwOHk0In0.eyJleHAiOjE3NTE4MTMxNzMsImlhdCI6MTc1MTgwOTU3MywianRpIjoib25ydHJvOjJhZDFiY2VmLWVmYWEtNDEyZC1hOWM2LWYwYjJjMzljNjBkYSIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA5MC9yZWFsbXMvZXZlbnQtdGlja2V0LXBsYXRmb3JuIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImY5ZTBmMGQ0LWI3MmItNDIzMi1hYzc0LTQxYjNkZDJiYjc1OSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImV2ZW50LXRpY2tldC1wbGF0Zm9ybS1hcHAiLCJzaWQiOiI0ZDRmYWU1NC0xM2Q1LTQ5ZDYtOGFlOS0xNzkzMDM4YjU2MDUiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm4iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiUk9MRV9BVFRFTkRFRSJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlVzZXIgQXR0ZW5kZWUiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhdHRlbmRlZSIsImdpdmVuX25hbWUiOiJVc2VyIiwiZmFtaWx5X25hbWUiOiJBdHRlbmRlZSIsImVtYWlsIjoiYXR0ZW5kZWVAZ21haWwuY29tIn0.jtl5v_L2BJzl4tipqpS7tqS4zbEFZWUpIZ4o4v6IcYrdZBvNz5-U6RwugZp7UHhBmw8uCXwKpaqKsQbkrV6yJgKRwAmgA35XceFRuGfiX4ZaiL4Ar74YT_9GZwPhzUt0qh02GqczOlhv_RFvIMxE9p0IXSFDx7f-MWtRzbdaFTiBn26XfTHZVwbAZ98Xejga2nYmPU9Kh8AaAVNWmc9XoTdB_0P5nR9cxa9Hn9nHqxf84vNcT1_yXDFmYKyz8gWDeuw9ohz27wVbh9zYJajwgBhhCOFGpapqlgk-SNFok_QRKIp1lNTI-0CSHfW-c4bX5EcQUvVWDaecP-mxJ0ovcg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/v1/tickets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ticket Details for User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2MTN6ams3OXZTZ3NFZ2Ixd1FCT2phOWJILXMxSlJQb0M5UGg3MERwOHk0In0.eyJleHAiOjE3NTE4MTMxNzMsImlhdCI6MTc1MTgwOTU3MywianRpIjoib25ydHJvOjJhZDFiY2VmLWVmYWEtNDEyZC1hOWM2LWYwYjJjMzljNjBkYSIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA5MC9yZWFsbXMvZXZlbnQtdGlja2V0LXBsYXRmb3JuIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImY5ZTBmMGQ0LWI3MmItNDIzMi1hYzc0LTQxYjNkZDJiYjc1OSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImV2ZW50LXRpY2tldC1wbGF0Zm9ybS1hcHAiLCJzaWQiOiI0ZDRmYWU1NC0xM2Q1LTQ5ZDYtOGFlOS0xNzkzMDM4YjU2MDUiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm4iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiUk9MRV9BVFRFTkRFRSJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlVzZXIgQXR0ZW5kZWUiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhdHRlbmRlZSIsImdpdmVuX25hbWUiOiJVc2VyIiwiZmFtaWx5X25hbWUiOiJBdHRlbmRlZSIsImVtYWlsIjoiYXR0ZW5kZWVAZ21haWwuY29tIn0.jtl5v_L2BJzl4tipqpS7tqS4zbEFZWUpIZ4o4v6IcYrdZBvNz5-U6RwugZp7UHhBmw8uCXwKpaqKsQbkrV6yJgKRwAmgA35XceFRuGfiX4ZaiL4Ar74YT_9GZwPhzUt0qh02GqczOlhv_RFvIMxE9p0IXSFDx7f-MWtRzbdaFTiBn26XfTHZVwbAZ98Xejga2nYmPU9Kh8AaAVNWmc9XoTdB_0P5nR9cxa9Hn9nHqxf84vNcT1_yXDFmYKyz8gWDeuw9ohz27wVbh9zYJajwgBhhCOFGpapqlgk-SNFok_QRKIp1lNTI-0CSHfW-c4bX5EcQUvVWDaecP-mxJ0ovcg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/v1/tickets/d71683ec-2287-4f78-a278-f7bdc26b3c17",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"d71683ec-2287-4f78-a278-f7bdc26b3c17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Qr Code for Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2MTN6ams3OXZTZ3NFZ2Ixd1FCT2phOWJILXMxSlJQb0M5UGg3MERwOHk0In0.eyJleHAiOjE3NTE4MTMxNzMsImlhdCI6MTc1MTgwOTU3MywianRpIjoib25ydHJvOjJhZDFiY2VmLWVmYWEtNDEyZC1hOWM2LWYwYjJjMzljNjBkYSIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA5MC9yZWFsbXMvZXZlbnQtdGlja2V0LXBsYXRmb3JuIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImY5ZTBmMGQ0LWI3MmItNDIzMi1hYzc0LTQxYjNkZDJiYjc1OSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImV2ZW50LXRpY2tldC1wbGF0Zm9ybS1hcHAiLCJzaWQiOiI0ZDRmYWU1NC0xM2Q1LTQ5ZDYtOGFlOS0xNzkzMDM4YjU2MDUiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm4iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiUk9MRV9BVFRFTkRFRSJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlVzZXIgQXR0ZW5kZWUiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhdHRlbmRlZSIsImdpdmVuX25hbWUiOiJVc2VyIiwiZmFtaWx5X25hbWUiOiJBdHRlbmRlZSIsImVtYWlsIjoiYXR0ZW5kZWVAZ21haWwuY29tIn0.jtl5v_L2BJzl4tipqpS7tqS4zbEFZWUpIZ4o4v6IcYrdZBvNz5-U6RwugZp7UHhBmw8uCXwKpaqKsQbkrV6yJgKRwAmgA35XceFRuGfiX4ZaiL4Ar74YT_9GZwPhzUt0qh02GqczOlhv_RFvIMxE9p0IXSFDx7f-MWtRzbdaFTiBn26XfTHZVwbAZ98Xejga2nYmPU9Kh8AaAVNWmc9XoTdB_0P5nR9cxa9Hn9nHqxf84vNcT1_yXDFmYKyz8gWDeuw9ohz27wVbh9zYJajwgBhhCOFGpapqlgk-SNFok_QRKIp1lNTI-0CSHfW-c4bX5EcQUvVWDaecP-mxJ0ovcg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/v1/tickets/d71683ec-2287-4f78-a278-f7bdc26b3c17/qr-codes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"d71683ec-2287-4f78-a278-f7bdc26b3c17",
+								"qr-codes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List Published events",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/api/v1/published-events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"published-events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Published Events",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8082/api/v1/published-events?query=Ankara",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"published-events"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "Ankara"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  Published Event",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8082/api/v1/published-events/d33af293-bdbd-42c1-9813-33b17cedf2ae",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"published-events",
+						"d33af293-bdbd-42c1-9813-33b17cedf2ae"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
